@@ -1,0 +1,44 @@
+package com.JavaGit.Basics.arraylist;
+
+public class urlIfy {
+    public static void main(String[] args){
+        String str = "  the is    here and where    ";
+
+        char[] arr = str.toCharArray();
+        int spaces = 0;
+        for(char x : arr){
+            if(x  == ' ')
+                ++spaces;
+        }
+        int len = arr.length + 2*spaces;
+        char[]  nwstr = new char[len];
+        int point = 0;
+        for(int i = 0; i < arr.length-1; i++){
+            if(arr[i] == ' '){
+                do{
+                    ++i;
+                }while(arr[i] == ' ' && i < arr.length-1);
+//                System.out.println("point :"+ point);
+                nwstr[point] = '2';
+                nwstr[point+1] = '0';
+                nwstr[point+2] = '%';
+                point += 3;
+//                System.out.println(" ");
+                --i;
+            }
+            else{
+
+                nwstr[point] = arr[i];
+//                System.out.println("Else: " + nwstr[point]);
+                ++point;
+
+            }
+            for(char p : nwstr) System.out.print(p);
+            System.out.println(" ");
+        }
+        ;
+
+
+
+    }
+}
