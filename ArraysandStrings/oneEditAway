@@ -1,0 +1,63 @@
+package com.JavaGit.Basics.arraylist;
+//There are three types of edits that can be performed on strings: insert a character, remove a character,
+// or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.
+//        EXAMPLE
+//        pale, ple true
+//        pales, pale -> true
+//        pale, bale -> true
+//        pale, bae -> false
+public class oneway {
+
+    public static boolean checkReplace(String a, String b){
+        System.out.println("Replacing Operation");
+        int count = 0;
+        for(int i = 0; i < a.length(); i++){
+            if(a.charAt(i) != b.charAt(i))
+                ++count;
+        }
+        return count > 1 ? false : true;
+    }
+
+    public static boolean checkRemove(String a, String b){
+        boolean[] arr = new boolean[26];
+        System.out.println("Removing Operation " + a + " " + b);
+        for(int x = 0; x < a.length(); ++x)
+            arr[a.charAt(x) - 'a'] = true;
+        for(int x = 0; x < b.length(); ++x)
+            arr[b.charAt(x) - 'a'] = false;
+
+        int count = 0;
+        for(boolean x : arr)
+            if(x) ++count;
+
+        return count > 1 ? false : true;
+    }
+
+    public static boolean checkInsert(String a, String b){
+        System.out.println("Inserting Operation on " + a + " " + b);
+        boolean[] arr = new boolean[26];
+        for(int x = 0; x < a.length(); ++x){
+            arr[a.charAt(x) - 'a'] = true;
+            arr[b.charAt(x) - 'a'] = false;
+        }
+        for(boolean x : arr){
+            if(x) return false;
+        }
+        return true;
+    }
+    public static boolean compareEdits(String a, String b){
+        if(a.length() == b.length())
+            return checkReplace(a, b);
+        else if(a.length() > b.length())
+            return checkRemove(a, b);
+        else
+            return checkInsert(a, b);
+    }
+
+    public static void main(String[] args){
+        String str1 = "pale";
+        String str2 = "pmme";
+        System.out.println(oneway.compareEdits(str1, str2));
+
+    }
+}
