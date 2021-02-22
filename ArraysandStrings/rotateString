@@ -1,0 +1,30 @@
+class Solution {
+    
+    public boolean isSubString(String str1, String str2){
+        boolean is_sub = false;
+        for(int i = 0; i < str1.length(); i++){
+            int k = 0, m = i;
+            while(str2.charAt(k) == str1.charAt(m)){
+                if(k == str2.length()-1) return true;
+                ++k;
+                ++m;
+            }
+        }
+        return false;
+    }
+    
+    public boolean rotateString(String A, String B) {
+        
+        int len = A.length();
+        if(len == 0 && B.length()==0) return true;
+        if(len != B.length()) return false;
+        String temp = new String(A);
+        temp = temp + A;
+        
+        if (isSubString(temp, B))
+            return true;
+        
+        return false;
+
+    }
+}
