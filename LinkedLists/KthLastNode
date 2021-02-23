@@ -1,10 +1,17 @@
-
-
 package com.JavaGit.Basics.linkedlist;
 
 import com.JavaGit.Basics.LinkedList;
 
 public class klastnode {
+
+    public static int recursive(LinkedList node, int kth){
+        if(node == null) return 0;
+
+        int index = recursive(node.next, kth) + 1;
+        if(index == kth)
+            System.out.println(kth + "th to last node is " + node.data);
+        return index;
+    }
 
     public static void KthLastNode(LinkedList node, int kth){
         LinkedList curr = node.getHead();
@@ -28,5 +35,6 @@ public class klastnode {
         node.addBeg(10);node.addBeg(5);
         node.addEnd(45); node.addEnd(47);
         KthLastNode(node, 5);
+        recursive(node.getHead(),5);
     }
 }
