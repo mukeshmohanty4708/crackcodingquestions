@@ -1,0 +1,35 @@
+package com.JavaGit.Basics.linkedlist;
+
+import com.JavaGit.Basics.LinkedList;
+
+public class removeDuplicates {
+
+    public static void removeDupList(LinkedList head){
+
+        LinkedList slw = head.getHead();
+        LinkedList fast = null;
+        LinkedList nlist = new LinkedList(0);
+        nlist.next = slw;
+        while(slw.next != null){
+            int temp_val = slw.data;
+            fast = slw;
+            while(fast.next != null && fast.next.next != null){
+                if(temp_val == fast.data)
+                    fast.next = fast.next.next;
+                else
+                    fast  = fast.next;
+            }
+            slw = slw.next;
+        }
+        nlist.next.printDS();
+
+    }
+
+    public static void main(String[] args){
+        LinkedList node = new LinkedList();
+        node.addBeg(5);node.addBeg(13);node.addBeg(8);
+        node.addBeg(10);node.addBeg(5);
+        node.addEnd(45); node.addEnd(47);
+        removeDupList(node);
+    }
+}
