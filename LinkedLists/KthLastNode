@@ -13,20 +13,18 @@ public class klastnode {
         return index;
     }
 
-    public static void KthLastNode(LinkedList node, int kth){
+   public static void KthLastNode(LinkedList node, int kth){
         LinkedList curr = node.getHead();
-        int len = 0;
-        while(curr.next != null){
+        while(kth > 0){
             curr = curr.next;
-            len++;
+            kth--;
         }
-        curr = node.getHead();
-        System.out.println("length: " + len);
-        while(len - kth > -1){
+        LinkedList slow = node.getHead();
+        while(curr != null){
             curr = curr.next;
-            len--;
+            slow = slow.next;
         }
-        System.out.println("Kth Node from the End is " + curr.data);
+        System.out.println("Kth Node from the End is " + slow.data);
     }
 
     public static void main(String[] args){
