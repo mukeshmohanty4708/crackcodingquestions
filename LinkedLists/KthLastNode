@@ -1,0 +1,32 @@
+
+
+package com.JavaGit.Basics.linkedlist;
+
+import com.JavaGit.Basics.LinkedList;
+
+public class klastnode {
+
+    public static void KthLastNode(LinkedList node, int kth){
+        LinkedList curr = node.getHead();
+        int len = 0;
+        while(curr.next != null){
+            curr = curr.next;
+            len++;
+        }
+        curr = node.getHead();
+        System.out.println("length: " + len);
+        while(len - kth > -1){
+            curr = curr.next;
+            len--;
+        }
+        System.out.println("Kth Node from the End is " + curr.data);
+    }
+
+    public static void main(String[] args){
+        LinkedList node = new LinkedList();
+        node.addBeg(5);node.addBeg(13);node.addBeg(8);
+        node.addBeg(10);node.addBeg(5);
+        node.addEnd(45); node.addEnd(47);
+        KthLastNode(node, 5);
+    }
+}
