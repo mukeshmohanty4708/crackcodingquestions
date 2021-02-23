@@ -1,0 +1,84 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    
+    public int getlenght(ListNode l, int res){
+        if(l == null) return 0;
+        res += getlenght(l.next, res) + 1;
+        return res;
+    }
+    public ListNode appendZeros(ListNode head, int num){
+        ListNode l = head;
+        while(head.next != null){
+            head = head.next;
+        }
+        while (num > 0){
+            ListNode temp = new ListNode(0);
+            head.next = temp;
+            head = head.next;
+            num--;
+        }
+        return l;
+    }
+    
+    
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int l1len = getlenght(l1, 0);
+        int l2len = getlenght(l2, 0);
+        // System.out.println("lenght: " + l1len + " " + l2len);
+        
+        ListNode l2_new = new ListNode();
+        ListNode l1_new = new ListNode();
+        if( l1len > l2len){
+            l2_new.next = appendZeros(l2, (l1len-l2len));
+            l1_new.next = l1;
+        }  
+        else if(l1len < l2len){
+            l1_new.next = appendZeros(l1, (l2len-l1len));
+            l2_new.next = l2;
+        }
+        else{
+            l2_new.next = l2;
+            l1_new.next = l1;
+        }
+        
+        l1_new = l1_new.next;
+        l2_new = l2_new.next;
+        
+        int carry = 0, sum_digits = 0;
+        ListNode result = new ListNode();
+        ListNode head = result;
+        
+        while(l1_new != null){
+            sum_digits = l1_new.val + l2_new.val;
+            
+            if(carry > 0){
+                sum_digits = sum_digits + carry;
+                carry = 0;
+            }
+            if(sum_digits > 9) 
+                carry += sum_digits / 10;
+            
+            sum_digits = sum_digits % 10;
+
+            result.next = new ListNode(sum_digits);
+            result = result.next;
+            l1_new = l1_new.next;
+            l2_new = l2_new.next;
+
+        }
+        
+        if(carry > 0)
+            result.next = new ListNode(carry);
+
+        return head.next;
+    }
+}
