@@ -1,0 +1,52 @@
+Sort Stack: Write a program to sort a stack such that the smallest items are on the top. 
+You can use an additional temporary stack, but you may not copy the elements into any other data structure (such as an array).
+The stack supports the following operations: push, pop, peek, and isEmpty.
+
+
+package com.JavaGit.Basics.stack;
+
+import java.util.Stack;
+
+public class sortstack {
+    private static int min = Integer.MAX_VALUE;
+
+    public static void implementSortStack(Stack<Integer> stk, int num){
+        Stack<Integer> tmp = new Stack<>();
+
+        if(stk.empty()){
+            min = num;
+            stk.push(num);
+        }
+        else{
+            int top = stk.peek();
+            if(num <= top) {
+                stk.push(num);
+                min = num;
+            }
+            else{
+                while(!stk.empty() && stk.peek() < num){
+                    tmp.push(stk.peek());
+                    stk.pop();
+                }
+                stk.push(num);
+                while(!tmp.empty()){
+                    stk.push(tmp.peek());
+                    tmp.pop();
+                }
+
+            }
+        }
+        min = stk.peek();
+        System.out.println(stk);
+        System.out.println("Min value: " + sortstack.min);
+    }
+
+
+    public static void main(String[] args){
+        Stack<Integer> stk = new Stack<>();
+        stk.push(25);stk.push(17);stk.push(2);
+        sortstack.implementSortStack(stk, 89);
+
+
+    }
+}
