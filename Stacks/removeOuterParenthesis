@@ -1,0 +1,47 @@
+Example 1:
+
+Input: "(()())(())"
+Output: "()()()"
+Explanation: 
+The input string is "(()())(())", with primitive decomposition "(()())" + "(())".
+After removing outer parentheses of each part, this is "()()" + "()" = "()()()".
+Example 2:
+
+Input: "(()())(())(()(()))"
+Output: "()()()()(())"
+Explanation: 
+The input string is "(()())(())(()(()))", with primitive decomposition "(()())" + "(())" + "(()(()))".
+After removing outer parentheses of each part, this is "()()" + "()" + "()(())" = "()()()()(())".
+
+
+class Solution {
+    public String removeOuterParentheses(String S) {
+        
+        Stack<Character> st = new Stack<>();
+        StringBuilder op = new StringBuilder();
+        int i = 0, open_bracket = 0;
+        while(i < S.length()){
+            if(S.charAt(i) == '('){
+                st.push('(');
+                open_bracket++;
+            }
+            if(S.charAt(i) == ')' && open_bracket > 0){
+                open_bracket--;
+                st.push(')');
+            }
+            if(S.charAt(i) == ')' && open_bracket == 0){
+                st.pop();
+                String tmp = new String();
+                while(st.size() > 1){
+                    tmp = st.peek() + tmp;
+                    st.pop();
+                }
+                op.append(tmp);
+                System.out.println(op);
+                if(!st.isEmpty()) st.pop();
+            }
+            i++;
+        }
+        return String.valueOf(op);
+    }
+}
