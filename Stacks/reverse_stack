@@ -1,0 +1,18 @@
+public static void reverseStack(Stack<Integer> st){
+        if(st.isEmpty()) return;
+        int temp = st.peek();
+        st.pop();
+        reverseStack(st);
+        insertAtBottom(st, temp);
+    }
+public static void insertAtBottom(Stack<Integer> st , int temp){
+        if(st.isEmpty()) {
+            st.push(temp);
+            return;
+        }
+        int nc = st.peek();
+        st.pop();
+        insertAtBottom(st, temp);
+        st.push(nc);
+
+    }
