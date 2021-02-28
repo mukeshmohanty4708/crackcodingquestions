@@ -1,0 +1,60 @@
+Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
+Example 1:
+
+Input:
+    3
+   / \
+  9  20
+    /  \
+   15   7
+Output: [3, 14.5, 11]
+Explanation:
+The average value of nodes on level 0 is 3,  on level 1 is 14.5, and on level 2 is 11. Hence return [3, 14.5, 11].
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Double> averageOfLevels(TreeNode root) {
+        //Levelorder Traveral and avg at individual levels and push
+        //it to the List
+        Queue<TreeNode> qu = new LinkedList<>();
+        List<Double> op = new ArrayList();
+        double sum, avg;
+        int nSize, len;
+        
+        if(root == null) return op;
+        qu.add(root);
+        while(!qu.isEmpty()){
+            
+            nSize = len = qu.size();
+            sum = 0.0;
+            while(nSize > 0){
+                TreeNode tmp = qu.remove();
+                if(tmp.left != null) qu.add(tmp.left);
+                if(tmp.right != null) qu.add(tmp.right);
+                sum += tmp.val;
+                --nSize;
+            }
+            op.add(sum/len);
+            
+        }
+        return op;
+        
+        
+        
+    }
+}
