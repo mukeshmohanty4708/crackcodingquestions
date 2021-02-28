@@ -13,6 +13,14 @@
  *     }
  * }
  */
+Algorithm:
+s1 and s2 stacks.
+enter the root to s1.
+pop from s1 and check if it has left and right, and push left and right to s1, and node to s2.
+continue step 3 till s1 is empty.
+print s2. 
+
+
 class Solution {
 
     public List<Integer> twostackiterative(TreeNode root, List<Integer> list){
