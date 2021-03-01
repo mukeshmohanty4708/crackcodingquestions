@@ -1,0 +1,76 @@
+Given a binary tree, find its minimum depth.
+
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+Note: A leaf is a node with no children.
+
+Input: root = [3,9,20,null,null,15,7]
+Output: 2
+Example 2:
+
+Input: root = [2,null,3,null,4,null,5,null,6]
+Output: 5
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int minDepthH(TreeNode root) { //  Solution 1
+
+      if (root == null) {
+        return Integer.MAX_VALUE;
+      }
+
+      if (root.left == null && root.right == null) {
+        return 1;
+      }
+
+      int leftD = minDepthH(root.left);
+      int rightD = minDepthH(root.right);
+
+      int myAns = Math.min(leftD, rightD) + 1;
+
+      return myAns;
+	}
+    
+    public int helper(TreeNode root){  //  Solution 2
+        if(root == null) return 0;
+        int lvl = 1;
+        
+        Queue<TreeNode> qu = new LinkedList();
+        qu.add(root);
+        while(!qu.isEmpty()){
+            
+            int nSize = qu.size();
+            while(nSize > 0){
+                TreeNode tmp = qu.remove();
+                if(tmp.left != null) qu.add(tmp.left);
+                if(tmp.right != null) qu.add(tmp.right);
+                
+                if(tmp.left == null && tmp.right == null)
+                    return lvl;
+                
+                nSize--;
+            }
+           
+            lvl++;
+        }
+        return lvl;
+        
+    }
+    
+    public int minDepth(TreeNode root) {
+
+        return helper(root);
+    }
+}
