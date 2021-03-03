@@ -1,0 +1,46 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    
+    public int maxHeight(TreeNode root){
+        if(root == null) return 0;
+        int h;
+        int lh = root.left == null ? 0 : maxHeight(root.left);
+        int rh = root.right == null ? 0 : maxHeight(root.right);
+        System.out.println(lh + " " + rh + " root " + root.val);
+        if(lh > rh)
+            h = 1 + lh;
+        else
+            h = 1+ rh;
+        
+        return h;
+    }
+    
+    int maxHeight2(TreeNode root){
+        if(root == null) return 0;
+        
+        int lh = maxHeight2(root.left) + 1;
+        int rh = maxHeight2(root.right) + 1;
+        
+        return(Math.max(lh,rh));
+    }
+    
+    public int maxDepth(TreeNode root) {
+        
+        // return maxHeight(root);
+        return maxHeight2(root);
+    }
+}
