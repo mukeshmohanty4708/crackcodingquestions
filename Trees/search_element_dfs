@@ -26,10 +26,28 @@ class Solution {
         }
     }
     
+    public TreeNode helperItrSearch(TreeNode root, int data){
+        
+        if(root == null) return null;
+        Stack<TreeNode> stk = new Stack();
+        
+        stk.push(root);
+        while(!stk.isEmpty()){
+            TreeNode tmp = stk.peek();
+            stk.pop();
+            if(tmp.val == data)
+                return tmp;
+            if(tmp.left != null) stk.push(tmp.left);
+            if(tmp.right != null) stk.push(tmp.right);
+        }
+        return null;
+    }
+    
     public TreeNode searchBST(TreeNode root, int val) {
         
         helperSearch(root,val);
-        return(out);
+        TreeNode toup = helperItrSearch(root,val);
+        return(toup);
 
     }
 }
