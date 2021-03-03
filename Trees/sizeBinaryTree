@@ -1,0 +1,16 @@
+class Solution {
+    int nnodes;
+    
+    public void sizeOfTree(TreeNode root){
+        if(root == null) return ;
+        nnodes++;
+        sizeOfTree(root.left);
+        sizeOfTree(root.right);
+    }
+    
+    public int countNodes(TreeNode root) {
+        if(root == null) return 0;
+        sizeOfTree(root);
+        return(nnodes);
+    }
+}
