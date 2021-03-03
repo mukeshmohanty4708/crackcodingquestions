@@ -1,0 +1,66 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isInserted = false;
+    public void insertNode(TreeNode root, int val){
+
+        if(root == null) return;
+        if(root.left == null && root.right == null && !isInserted){
+            if(root.val > val) {
+                root.left = new TreeNode(val);
+                isInserted = true;
+            }
+            else{ 
+                root.right = new TreeNode(val);
+                isInserted = true;
+            }
+        }
+        insertNode(root.left, val);
+        insertNode(root.right, val);
+    }
+    
+    public void insertBFS(TreeNode root, int val){
+        if(root == null) return;
+        
+        Queue<TreeNode> qu = new LinkedList();
+        qu.add(root);
+        
+        while(!qu.isEmpty()){
+            int nSize = qu.size();
+            while(nSize-- > 0){
+                TreeNode tmp = qu.remove();
+                System.out.println(tmp.val);
+                if(tmp.left == null && tmp.val > val){
+                    tmp.left = new TreeNode(val);
+                    return;
+                }
+                if(tmp.right == null && tmp.val <= val){
+                    tmp.right = new TreeNode(val);
+                    return;
+                }
+                if(tmp.left != null) qu.add(tmp.left);
+                if(tmp.right != null) qu.add(tmp.right);
+            }
+        }
+        
+    }
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        TreeNode head = root;
+        insertNode(root, val);
+        // insertBFS(root, val);
+        return head;
+    }
+}
