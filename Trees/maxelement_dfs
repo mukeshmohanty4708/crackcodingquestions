@@ -1,0 +1,22 @@
+    public int maxElement(TreeNode root){
+        
+        int max = Integer.MIN_VALUE;
+        if(root != null){
+            int lval = maxElement(root.left);
+            int rval = maxElement(root.right);
+            
+            // System.out.println("lval " + lval + " rval " + rval);
+            // System.out.println("root " + root.val);
+            if(lval > rval)
+                max = lval;
+            else
+                max = rval;
+            if(root.val > max)
+                max = root.val;
+        }
+        
+         System.out.println("MAX " + max);
+        return max;
+        
+    }
+    
