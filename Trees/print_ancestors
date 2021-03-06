@@ -1,0 +1,14 @@
+//Give an algorithm for printing all the ancestors of a node in a Binary tree. For the tree below, for 7 the ancestors are
+root
+ 
+ 
+ public boolean printAncestors(TreeNode root, int num){
+        if(root == null) return false;
+        
+        if(root.val == num ||printAncestors(root.left, num) || printAncestors(root.right, num)){
+            System.out.println(root.val);
+            return true;
+        }
+        return false;
+}
+    
