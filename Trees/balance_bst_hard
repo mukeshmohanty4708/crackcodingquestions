@@ -1,0 +1,56 @@
+Given a binary search tree, return a balanced binary search tree with the same node values.
+
+A binary search tree is balanced if and only if the depth of the two subtrees of every node never differ by more than 1.
+If there is more than one answer, return any of them.
+
+ 
+
+Example 1:
+
+Input: root = [1,null,2,null,3,null,4,null,null]
+Output: [2,1,3,null,null,null,4]
+Explanation: This is not the only correct answer, [3,1,4,null,2,null,null] is also correct.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    
+    ArrayList<Integer> arr = new ArrayList<Integer>();
+    
+    public void helperCreateArray(TreeNode root){
+        if(root == null) return ;
+        helperCreateArray(root.left);
+        arr.add(root.val);
+        helperCreateArray(root.right);
+        
+    }
+    public TreeNode helperTreeCreate( ArrayList<Integer> arr, int start, int end){
+        if(start > end) return null;
+        int mid = (start + end)/2;
+        TreeNode node = new TreeNode(arr.get(mid));
+        
+        node.left = helperTreeCreate(arr, start, mid-1);
+        node.right = helperTreeCreate(arr, mid+1, end);
+        return node;
+    }
+    
+    public TreeNode balanceBST(TreeNode root) {
+        helperCreateArray(root);
+        
+        if(arr.isEmpty()) return null;
+        return helperTreeCreate(arr, 0, arr.size()-1);
+    }
+}
