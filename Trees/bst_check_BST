@@ -4,7 +4,7 @@ The Node class is defined as follows:
     Node left;
     Node right;
      }
-*/
+*/Not all Cases will Work.....
     boolean checkBST(Node root) {
         if(root == null) return true;
         if(root.left != null && root.left.data > root.data)
@@ -16,3 +16,24 @@ The Node class is defined as follows:
         return true;
         
     }
+/* For all cases...
+class Solution {
+
+    public boolean helperBST(TreeNode root, TreeNode l, TreeNode r){
+        if(root == null) return true;
+        
+         if(l != null && l.val >= root.val){
+            return false;
+        }
+        if(r != null && r.val <= root.val){
+            return false;
+        }
+        return(helperBST(root.left, l, root) && helperBST(root.right, root, r));
+ 
+    }
+    
+    public boolean isValidBST(TreeNode root) {
+
+        return(helperBST(root, null, null));
+    }
+}
