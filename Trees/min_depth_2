@@ -1,0 +1,46 @@
+Runtime: 187 ms, faster than 5.09% of Java online submissions for Minimum Depth of Binary Tree.
+Memory Usage: 60 MB, less than 45.76% of Java online submissions for Minimum Depth of Binary Tree.
+Next challenges:
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int min = Integer.MAX_VALUE;
+    
+    public void helper(TreeNode root, ArrayList<Integer> arr){
+        if(root == null) return;
+        
+        arr.add(root.val);
+        if(root.left != null) helper(root.left, arr);
+        if(root.right != null) helper(root.right, arr);
+        if(root.left == null && root.right == null){
+            // System.out.println(arr);
+            min = Math.min(min, arr.size());
+        }
+        arr.remove(arr.indexOf(root.val));
+        
+        
+    }
+    
+    public int minDepth(TreeNode root) {
+        
+        if(root == null) return 0;
+        if(root.left == null && root.right == null) return 1;
+        ArrayList<Integer> arr = new ArrayList();
+        helper(root, arr);
+        return min;
+    }
+}
